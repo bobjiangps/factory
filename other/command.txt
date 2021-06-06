@@ -1,0 +1,2 @@
+# start celery worker
+Celery -A factory worker -l info -E
