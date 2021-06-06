@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 import json
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'office',
-    'django_celery_results'
+    'django_celery_beat',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -137,11 +139,26 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# celery
+## celery
 CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
-# CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/1"
 CELERY_TIMEZONE = 'UTC'
+# store result in django used db
 CELERY_RESULT_BACKEND = "django-db"
+# CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/1"
 CELERY_ACCEPT_CONTENT = ['application/json', ]
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+# set celery beat for periodical tasks below; or if set in admin, use CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_BEAT_SCHEDULE = {
+    "add-every-30s": {
+        "task": "office.tasks.add",
+        'schedule': 30.0,  # 每30秒执行1次
+        'args': (3, 6)  # 传递参数
+    },
+    "add-every-day": {
+        "task": "app.tasks.add",
+        'schedule': timedelta(hours=1),  # 每小时执行1次
+        'args': (4, 9)  # 传递参数
+    },
+}
+

@@ -1,2 +1,4 @@
 # start celery worker
 Celery -A factory worker -l info -E
+# start celery beat for periodical task
+Celery -A factory beat
