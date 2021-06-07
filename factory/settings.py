@@ -20,7 +20,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 with open(str(Path(BASE_DIR).joinpath("config", "config.json")), "r") as store_file:
     STORED = json.load(store_file)
-
 with open(str(Path(BASE_DIR).joinpath("config", "register.json")), "r") as register_file:
     registered = json.load(register_file)
     system_name = platform.system()
@@ -37,6 +36,7 @@ with open(str(Path(BASE_DIR).joinpath("config", "register.json")), "r") as regis
 SECRET_KEY = STORED['secret_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = False
 DEBUG = True
 
 ALLOWED_HOSTS = []

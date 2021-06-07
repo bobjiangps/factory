@@ -15,8 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from factory.settings import registered
+
+
+role_url = {
+    "office": path('office/', include('office.urls')),
+    # "worker": path('worker/', include('worker.urls'))
+}
 
 urlpatterns = [
-    path('office/', include('office.urls')),
+    role_url[registered["role"]],
     path('admin/', admin.site.urls),
 ]

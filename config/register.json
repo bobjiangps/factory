@@ -1,6 +1,6 @@
 {
   "role": "office",
-  "platform": "Mac",
+  "platform": {},
   "support": {
     "browser": ["Chrome", "Firefox", "Safari"],
     "mobile": ["Android", "iOS"]
