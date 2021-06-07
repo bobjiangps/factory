@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 import json
+import platform
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +21,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 with open(str(Path(BASE_DIR).joinpath("config", "config.json")), "r") as store_file:
     STORED = json.load(store_file)
 
-# Quick-start development settings - unsuitable for production
+with open(str(Path(BASE_DIR).joinpath("config", "register.json")), "r") as register_file:
+    registered = json.load(register_file)
+    system_name = platform.system()
+    if system_name == "Darwin":
+        registered["platform"]["name"] = "Mac"
+        registered["platform"]["version"] = platform.platform().split("-")[1]
+    else:
+        registered["platform"]["name"] = system_name
+        registered["platform"]["version"] = platform.version()
+
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
