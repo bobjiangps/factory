@@ -16,14 +16,23 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from factory.settings import registered
+from rest_framework import routers
+from users import views_auth_token as uat_views
+
+
+router = routers.DefaultRouter()
 
 
 role_url = {
-    "office": path('office/', include('office.urls')),
+    "office": path('factory/office/', include('office.urls')),
     # "worker": path('worker/', include('worker.urls'))
 }
 
 urlpatterns = [
+    path('factory/api/', include(router.urls)),
     role_url[registered["role"]],
     path('admin/', admin.site.urls),
+    path('factory/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('factory/api/login/', uat_views.ObtainExpiringAuthToken.as_view(), name='login'),
+    path('factory/api/logout/', uat_views.RevokeAuthToken.as_view(), name='logout'),
 ]
