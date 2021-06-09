@@ -24,8 +24,8 @@ router = routers.DefaultRouter()
 
 
 role_url = {
-    "office": path('factory/office/', include('office.urls')),
-    # "worker": path('worker/', include('worker.urls'))
+    "office": path('factory/api/office/', include('office.urls')),
+    "worker": path('factory/api/worker/', include('worker.urls'))
 }
 
 urlpatterns = [
