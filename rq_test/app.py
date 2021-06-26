@@ -20,3 +20,18 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# # 1
+# myredis = Redis(password="bobjiang")
+# workers = Worker.all(connection=myredis)
+# print(workers[0])
+# # 2
+# queue = Queue(connection=Redis(password="bobjiang"))
+# workers = Worker.all(queue=queue)
+# print(workers[0])
+# # 3
+# myredis = Redis(password="bobjiang")
+# queue = Queue('test',connection=Redis(password="bobjiang"))
+# worker = Worker([queue], connection=myredis, name='foo')
+# worker.work()
