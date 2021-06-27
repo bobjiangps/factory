@@ -5,10 +5,11 @@ from rq import Queue, Retry, Worker
 from te import task
 
 
-# rq worker -u redis://:password@localhost:6379/0 --name worker1 --with-scheduler
+# rq worker -u redis://:bobjiang@localhost:6379/0 --name worker1 --with-scheduler
+# rq worker low high default
 
 
-queue = Queue(connection=Redis(password="bobjiang"))
+queue = Queue('debug', connection=Redis(password="bobjiang"))
 
 def queue_tasks():
     queue.enqueue(task.print_task, 5)
