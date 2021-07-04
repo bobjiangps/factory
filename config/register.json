@@ -1,5 +1,9 @@
 {
-  "role": "office",
+//  "role": "office",
+//  "name": "office-1",
+  "role": "worker",
+  "name": "worker-1",
+  "register_to": "localhost",
   "platform": {},
   "support": {
     "browser": ["Chrome", "Firefox", "Safari"],
